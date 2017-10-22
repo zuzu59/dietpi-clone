@@ -5,8 +5,13 @@
 #source: https://github.com/billw2/rpi-clone
 
 
+zUUID=`cat /boot/armbianEnv.txt |grep rootdev`
+echo $zUUID
 
-toto=`cat /mnt/clone/boot/armbianEnv.txt |grep rootdev`
+cat /mnt/clone/boot/armbianEnv.txt
 
-echo $toto
+sed -i -E "s/rootdev=UUID=.+/$zUUID/" /mnt/clone/boot/armbianEnv.txt
+
+cat /mnt/clone/boot/armbianEnv.txt
+
 
