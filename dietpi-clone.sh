@@ -1,8 +1,9 @@
 #!/bin/bash
 # petit script pour cloner une carte SD DietPi sur une autre, mais plus petite
-#zf171022.2336
+#zf171022.2350
 
 #source: https://github.com/billw2/rpi-clone
+#https://doc.ubuntu-fr.org/dd
 
 zSD="/dev/sda"
 zSD1=$zSD"1"
@@ -62,10 +63,12 @@ cat /mnt/clone/boot/armbianEnv.txt |grep rootdev=
 
 
 #démonte la nouvelle SD
+echo ---------- sync
 sync
 sync
 sync
 sleep 1
 umount $zSD1
 umount $zSD2
+echo ---------- terminé !
 
