@@ -23,8 +23,12 @@ sleep 1
 #crée les partions de la nouvelle SD et les formates
 (echo n; echo p; echo 1; echo ; echo +100M; echo w) | fdisk $zSD
 (echo n; echo p; echo 2; echo ; echo +3.7G; echo w) | fdisk $zSD
+#change le type à FAT16 de la SD1
+(echo t; echo 1; echo e; echo w) | fdisk $zSD
+#rend bootable la SD1
+(echo a; echo 1; echo w) | fdisk $zSD
 sleep 1
-mkfs -t vfat -F 32 $zSD1
+mkfs -t vfat $zSD1
 (echo y) | mkfs -t ext4 $zSD2
 sleep 1
 
