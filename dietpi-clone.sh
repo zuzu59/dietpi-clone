@@ -1,6 +1,6 @@
 #!/bin/bash
 # petit script pour cloner une carte SD DietPi sur une autre, mais plus petite
-#zf171022.2248
+#zf171022.2336
 
 #source: https://github.com/billw2/rpi-clone
 
@@ -16,6 +16,9 @@ umount $zSD1
 umount $zSD2
 sleep 1
 
+#copie le MBR de la SD
+dd if=/dev/mmcblk0 of=$zSD bs=446 count=1
+
 #efface toute les partition de la nouvelle SD
 (echo d; echo ; echo d; echo ; echo d; echo ; echo w) | fdisk $zSD
 sleep 1
@@ -23,6 +26,7 @@ sleep 1
 #crée les partions de la nouvelle SD et les formates
 (echo n; echo p; echo 1; echo ; echo +100M; echo w) | fdisk $zSD
 (echo n; echo p; echo 2; echo ; echo +3.7G; echo w) | fdisk $zSD
+
 #change le type à FAT16 de la SD1
 (echo t; echo 1; echo e; echo w) | fdisk $zSD
 #rend bootable la SD1
@@ -49,10 +53,9 @@ sleep 1
 #zdebug
 
 
-
+#path le fichier /mnt/clone/boot/armbianEnv.txt avec le UUID de SD2
 zUUID=`blkid |grep $zSD2 | awk '{print $2}' | sed 's/\"//g'`
 echo $zUUID
-
 cat /mnt/clone/boot/armbianEnv.txt |grep rootdev=
 sed -i -E "s/rootdev=.+/rootdev=$zUUID/" /mnt/clone/boot/armbianEnv.txt
 cat /mnt/clone/boot/armbianEnv.txt |grep rootdev=
