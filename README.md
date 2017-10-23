@@ -1,6 +1,6 @@
 # dietpi-clone
-Petit script pour cloner la carte FLASH SD DietPi sur une autre avec un OrangePi zero.<br>
-Attention:<br>
+Petit script pour cloner la carte FLASH SD DietPi sur une autre avec un OrangePi zero.<br><br>
+**Attention:**<br>
 Ce n'est pas une copie *dd* car cela obligerait d'avoir comme carte FLASH SD de destination de taille équivalente, de plus les 32GB étant très bon marchées il faudrait faire un *dd* de 32GB, beaucoup trop long.<br>
 La carte FLASH SD de destination est partitionnée, formatée et les données sont copiées dessus avec un *rsync*. Cela permet de cloner sur une destination plus petite que l'origine et surtout de pouvoir cloner à haute vitesse, moins de 3 minutes sur un OrangePi zero !<br>
 Comme la carte FLASH SD est formatée, elle a un UUID différent que la carte d'origine, le fichier /boot/armbianEnv.txt est donc mis à jour avec le nouvel UUID. Nous avons donc un vrai clone de FLASH SD avec un UUDI différent !<br>
